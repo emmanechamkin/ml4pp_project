@@ -1,0 +1,25 @@
+Amitabh notes 
+- non-traditional English --> translate emoji; only create problems when use pre-trained components 
+- tag where things are from? 
+- expect sentiment should be independent of whether using media or text --> assume text use is evenly distributed throughout people
+- always will have a certain level of bias
+- get rid of RT entirely? --> leave them in as weights
+- define relevance in an automated fashion (train it in a way to figure out relevance) --> if afraid of bias in relevance, take off the shelf tweets without sentiment --> keep this
+
+
+Next steps are 
+- translate emoji more cleanly 
+- translate links
+- relevance of tweets 
+
+Might be interesting to do a manual and automated annotation and see where you get 
+different results 
+- Nice to see
+- Off the shelf -- can it understand Chicago lingo
+- "real experience" getting to know the data is really important
+- how can improve performance? Compelling story 
+- people have an intuitive sense of but this has numbers
+
+Great presentation
+Should be able to have a reasonable understanding of what you're doing, 
+    claim to reasonably know what you say you know

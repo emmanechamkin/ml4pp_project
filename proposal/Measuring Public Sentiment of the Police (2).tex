@@ -1,0 +1,582 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{Measuring Public Sentiment towards the Police}
+    \author{Emma Nechamkin}
+    
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+Public perception of the police is incredibly important to police
+effectiveness and legitimacy but extremely difficult to measure. Public
+perception offers insight into how well a police department is
+functioning and may suggest adherence to tenets of procedural justice.
+Yet, compared to traditional performance metrics, metrics to evaluate
+public opinion are poorly defined and documented.
+
+\hypertarget{clearance-rates}{%
+\subsection{Clearance rates}\label{clearance-rates}}
+
+Homicide clearance rates, or what share of murders a police department
+``solves'', are a key performance metric for police departments. Chicago
+has one of the lowest homicide clearance rates in the country, and only
+about 1 in 6 murders lead to arrest. Moreover, Chicago's clearance rate
+has steadily declined over the past ten years, from about 40\% in 2000
+down to under 20\% in 2017. As a comparison, several police departments
+have markedly higher clearance rates. Over the past decade, Los Angeles
+has solved 51\% of murders and New York has solved 61\% of murders.
+
+There are several potential reasons for the low clearance rate in
+Chicago, some of which suggest that non-traditional metrics of policing
+like procedural justice or public opinion may be related to traditional
+metrics. Police officers tend to cite the historically fraught
+relationship between the people and police, believing that someone who
+already views the police negatively because police seem inept may be
+less likely to cooperate with an investigation; more bluntly, many
+police officers lament a ``no snitch'' policy among victimized
+communities in Chicago. Evidence is conflicted: the National Crime
+Victimization Survey reports that these communities are no less likely
+to report crimes to the police, but a Cato Institute survey shows a race
+and education gap for crime reporting. There are also other viable
+explanations for Chicago's abysmal clearance rate, most notably that
+Chicago's police force has limited manpower per murder. Chicago has more
+murders than New York and Los Angeles combined, yet the police
+department (12,000 officers) is dwarved by New York's (36,000) and Los
+Angeles' (10,000).
+
+\hypertarget{public-opinion}{%
+\subsection{Public opinion}\label{public-opinion}}
+
+Procedural justice, or how police
+officers enforce laws, is necessary for effective policing. A civilian who
+considers the law enforcement process fair and just is likely to
+consider any related consequences fair and just, too. Conversely, when
+civilians perceive lack of procedural justice, they are more likely to
+file complaints and view their police force as delegitimate. For
+example, one study of New York Police Department Stop, Question, and
+Frisk stops showed that civilians who believed their stop to be fair
+were less likely to file a complaint than those who believed their stop
+was unjust. Finally, a lack of procedural justice in just a few
+encouters can severely curtail public opinion of the police. Negative
+interactions with the police shape citizen perception up to fourteen
+times more strongly than positive ones.
+
+Public perception of the police offers an additional metric to assess
+police performance. While hard metrics like clearance rates are easy to
+measure, assessing how the public feels towards the police is far more
+complex. Indeed, most work that tries to assess public sentiment uses
+survey-based or experimental research. Indeed, most past research has evaluated 
+procedural justice through
+the lens of public opinion survey data. Such research is necessarily
+removed from the real world.
+
+\hypertarget{research-goals}{%
+\subsection{Research goals}\label{research-goals}}
+
+Although public perception of the police is complex, I'm interested in
+assessing whether public perception of the police in related tweets is
+correlated with police effectiveness as measured by clearance rates. 
+This follows recent work that has considered sentiments
+of tweets to assess public opinion of the police.
+  
+More specifically, I'm interested in assessing, in order of importance:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  The extent to which public sentiment reflects traditional metrics of
+  police effectiveness,
+\item
+  The differences by topic between effective and less effective police
+  departments, and
+\item
+  How tweets about police departments reflect tenets of procedural
+  justice.
+\end{enumerate}
+
+As a caveat, public
+perception of the police is complicated and interacts with policing in
+myriad ways.
+
+\hypertarget{past-work}{%
+\section{Past Work}\label{past-work}}
+
+\hypertarget{using-twitter-data-to-measure-public-sentiment-towards-the-police}{%
+\subsection{Using twitter data to measure public sentiment towards the
+police}\label{using-twitter-data-to-measure-public-sentiment-towards-the-police}}
+
+Although there has been limited work using data science techniques to
+study criminal justice, the Urban Institute used sentiment analysis for
+police-related tweets to measure how perception of the police changed
+due to the murder of Freddie Gray, using the following methods:
+
+\begin{itemize}
+\tightlist
+\item
+  Obtaining the data: researchers used a set of relevant tweets from
+  2014 and 2015 acquired through twitter.
+\item
+  Processing the data: researchers removed mentions, hashtags, links,
+  punctuation, and stop words from all tweets. They also used CoreNLP to
+  tag tweets (e.g., to identify whether ``cop'' was a noun or a verb in
+  each tweet).
+\item
+  Learning models: researchers classified over 4,000 tweets manually to
+  identify whether the tweet was positive, negative, neutral, or not
+  applicable to their research for use in training and validation sets.
+  They then used several types of models to predict the sentiment of new
+  tweets and selected a gradient-boosted regression classifier as their
+  model based on its accuracy (63\%).
+\item
+  Conclusions: researchers then used their newly labeled set of all
+  tweets to assess the shift in public sentiment over time.
+\end{itemize}
+
+\hypertarget{using-twitter-data-to-connect-public-opinion-with-tweet-sentiment}{%
+\subsection{Using twitter data to connect public opinion with tweet
+sentiment}\label{using-twitter-data-to-connect-public-opinion-with-tweet-sentiment}}
+
+As a more general example, researchers at Carnegie Mellon University
+determined that public opinion surveys correlate to twitter sentiment on
+several key issues. They used twitter data specifically with two
+endgoals: to identify relevant tweets and to estimate sentiment
+(positive and negative) about a given topic.
+
+In their work, researchers obtained tweets from 2008 and 2009 using the
+twitter API. They then used key words (like ``obama'' to measure
+presidential approval) to ensure that their tweets were relevant. Tweets
+were classified as positive, negative, or both depending on whether
+there was a positive, a negative, or both types of words in it. Finally,
+to get an accurate measure of sentiment, they computed a moving average
+aggregate of sentiment ratios, where sentiment ratio was defined as the
+ratio between the number of positive and negative relevant tweets. The
+moving averages allowed them to smooth otherwise volatile data. They
+then investigated correlations between the sentiment they uncovered and
+traditional public opinion surveys.
+
+\hypertarget{logistics}{%
+\section{Logistics}\label{logistics}}
+
+\hypertarget{steps}{%
+\subsection{Steps}\label{steps}}
+
+For this project, I will specifically focus on Chicago, Los Angeles, and
+New York in several (broad stroke) steps.
+
+\begin{itemize}
+\tightlist
+\item
+  Obtain relevant data using the twitter API and/or python's tweepy package. Relevant tweets will
+  contain hashtags related to Chicago police, New York police, and Los
+  Angeles police
+\item
+  Pre-process data by removing stop words and using baseline CoreNLP
+  functionality and potentially python's NLTK package. 
+\item
+  Create a model to identify the sentiment of tweets (TBD based on results)
+\item
+  Use topic modeling to evaluate how procedural justice is reflected in
+  tweets, and what else is reflected in relevant tweets
+\end{itemize}
+
+\hypertarget{packages}{%
+\subsection{Packages}\label{packages}}
+
+I plan to use an AWS server to complete the CoreNLP work, and a variety
+of ML packages in python to build and evaluate models (include
+scikit-learn, and, depending on the models used, other more advanced
+packages). I also plan to use python's NLTK for topic modeling and tweepy/twitter's API.
+
+\hypertarget{milestones}{%
+\subsection{Milestones}\label{milestones}}
+
+At minimum, I hope to have completed the first two steps listed
+(obtaining relevant tweets and preprocessing tweets using CoreNLP and
+manual tagging) by the mid-quarter presentation.
+
+\hypertarget{project-evaluation}{%
+\subsection{Project evaluation}\label{project-evaluation}}
+
+By the end of the project, I hope to evaluate the sentiment using a
+testing / training / validation framework in which I assess how well 
+my model has classified tweets. 
+
+Topic modeling is currently an aspirational part of this project and I expect
+to have a more concrete plan as we gain depth in this class. 
+
+\hypertarget{logistics-1}{%
+\subsection{Logistics}\label{logistics-1}}
+
+I am working alone and so do not need to coordinate work among
+teammates. My rough timeline is shown below. This timeline is
+aspirational and reflects the ``best case'' of work.
+
+\begin{itemize}
+\tightlist
+\item
+  April 19: Twitter data collected
+\item
+  April 23: Basic preprocessing completed (CoreNLP tagging, similar to
+  Urban Institute)
+\item
+  April 26: Manual coding of tweet sentiment completed
+\item
+  April 31: First run of selections of models completed
+\item
+  May 3: Models evaluated
+\item
+  May 10: Model refinement and adjustment
+\item
+  May 15: Topic modeling outlined
+\item
+  May 20: Topic modeling completed
+\item
+  May 25: Analysis completed
+\item
+  May 30: Report and presentation draft completed
+\end{itemize}
+
+    \hypertarget{selected-sources}{%
+\section{Selected sources (informal)}\label{selected-sources}}
+
+\hypertarget{papers}{%
+\subsection{Papers}\label{papers}}
+\begin{itemize}
+\tightlist
+
+\item
+Ekins, Emily. (2016). Policing in America: Understanding Public
+Attitudes Toward the Police. Results from a National Survey. SSRN
+Electronic Journal. 10.2139/ssrn.2919449.
+
+\item
+Fowler, AF Rengifo and K. 2016. ``Stop, Question, and Complain: Citizen
+Grievances Against the NYPD and the Opacity of Police Stops Across New
+York City Precincts, 2007-2013.'' Journal of Urban Health (93 Suppl 1):
+32-41.
+
+\item
+O'Connor, Brendan \& Balasubramanyan, Ramnath \& R. Routledge, Bryan \&
+A. Smith, Noah. (2010). From Tweets to Polls: Linking Text Sentiment to
+Public Opinion Time Series. International AAAI Conference on Weblogs and
+Social Media. 11.
+
+\item
+Oglesby-Neal, Ashlin, Tiry, Emily, and Kim, KiDeuk. ``Public Perceptions of Police
+on Social Media." 19 February 2019. Urban Institute Research Brief. 
+
+\item
+Skogan, Wesley G. 2006. ``Asymmetry in the Impact of Encounters With
+Police.'' Policing and Society.
+
+\item
+Tyler, Tom R. 2004. ``Enhancing Police Legitimacy.'' The Annals of the
+American Academy of Political and Social Science 593: 84-99.
+\end{itemize}
+
+\hypertarget{news-and-articles-quick-links}{%
+\subsection{News and articles (quick
+links)}\label{news-and-articles-quick-links}}
+
+\begin{itemize}
+\tightlist
+\item
+  https://www.washingtonpost.com/graphics/2018/investigations/unsolved-homicide-database/?utm\_term=.8da8a801878a\&city=indianapolis{]}
+\item
+  https://chicago.suntimes.com/news/murder-clearance-rate-in-chicago-hit-new-low-in-2017/
+\item
+  https://www.theatlantic.com/ideas/archive/2018/05/quis-custodiet-ipsos-custodes/560324/
+\item
+  https://datasmart.ash.harvard.edu/news/article/map-monday-unsolved-homicides
+\end{itemize}
+    
+    
+    
+    \end{document}
