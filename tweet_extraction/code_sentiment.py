@@ -32,6 +32,7 @@ def ping_server(tweet_keep, server_url=SERVER_URL, parameters=PARAMS):
     sentiment = r.json()["sentences"][0]["sentiment"]
     return [tweet_keep, sentiment]
 
+
 if __name__ == "__main__":
     STOP_WORDS = set(stopwords.words('english'))
     TABLE = str.maketrans({key: None for key in string.punctuation})
@@ -57,13 +58,11 @@ if __name__ == "__main__":
                         tweet_keep += " " + word
             if tweet_keep:
                 try:
-                    assert count < 100
-                    labeled = ping_server(tweet_keep)
-                except:
-                    break
-                writer.writerow(labeled)
-                except: #add error here
+                    labeled = ping_server(tweet_keep)                    
+                    writer.writerow(labeled)
+                except Exception as e: #add error here
                     print("Ping failed", tweet_keep)
+                    print("Error", e)
                     # print("Terminating instances...")
                     # os.system(f"aws ec2 terminate-instances --instance-ids {EC2_ID} --profile ml4pp")
 

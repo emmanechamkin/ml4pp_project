@@ -1,1 +1,0 @@
-aws ec2 run-instances --image-id ami-0565af6e282977273 --count 1 --instance-type t2.micro --key-name ml4pp --security-group-ids sg-7b59e522 --region us-east-1 --profile ml4pp --user-data file://bootstrap.sh 
