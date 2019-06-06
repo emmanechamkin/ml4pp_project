@@ -1,0 +1,45 @@
+<!-- You must include this JavaScript file -->
+<script src="https://assets.crowd.aws/crowd-html-elements.js"></script>
+
+<!-- For the full list of available Crowd HTML Elements and their input/output documentation,
+      please refer to https://docs.aws.amazon.com/sagemaker/latest/dg/sms-ui-template-reference.html -->
+
+<!-- You must include crowd-form so that your task submits answers to MTurk -->
+<crowd-form answer-format="flatten-objects">
+
+    <!-- The crowd-classifier element will create a tool for the Worker to select the
+           correct answer to your question -->
+    <crowd-classifier 
+      name="sentiment"
+      categories="['About the police - Positive', 'About the police - Negative', 'About the police - Neutral', 'Not about the police']"
+      header="What sentiment does this tweet convey? Please ignore any emoji that do not render"
+    >
+
+      <classification-target>
+        <!-- The text you want classified will be substituted for the "text" variable when you 
+               publish a batch with a CSV input file containing multiple text items  -->
+        ${text}
+      </classification-target>
+
+     <!-- Use the short-instructions section for quick instructions that the Worker
+            will see while working on the task. Including some basic examples of 
+            good and bad answers here can help get good results. You can include 
+            any HTML here. -->
+      <short-instructions>
+       Choose the primary sentiment that is expressed by the text. 
+      </short-instructions>
+
+      <!-- Use the full-instructions section for more detailed instructions that the 
+            Worker can open while working on the task. Including more detailed 
+            instructions and additional examples of good and bad answers here can
+            help get good results. You can include any HTML here. -->
+      <full-instructions header="Sentiment Analysis Instructions">
+        <p><strong>About the police - Positive</strong> The tweet reflects positive feelings about the Chicago Police (sentiment include: fairness, safety, happiness) </p>
+        <p><strong>About the police - Negative</strong> The tweet reflects negative feelings about the Chicago Police (sentiment include: anxiety, fear, anger) </p>
+        <p><strong>About the police - Neutral</strong>: neither positive or negative, such as stating a fact (like a news headline)</p>
+        <p><strong>Not about the police</strong>: when the text is not about the Chicago Police Department at all</p>
+        <p>When the sentiment is mixed, such as both joy and sadness, use your judgment to choose the stronger emotion.</p>
+      </full-instructions>
+
+    </crowd-classifier>
+</crowd-form> 
