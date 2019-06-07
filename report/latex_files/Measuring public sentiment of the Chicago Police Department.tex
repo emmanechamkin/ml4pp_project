@@ -1,0 +1,1264 @@
+
+    
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    \usepackage[breakable]{tcolorbox}
+    \tcbset{nobeforeafter} % prevents tcolorboxes being placing in paragraphs
+    \usepackage{float}
+    \floatplacement{figure}{H} % forces figures to be placed at the correct location
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{Measuring public sentiment of the Chicago Police Department}
+    
+    
+    
+    
+    
+% Pygments definitions
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % For linebreaks inside Verbatim environment from package fancyvrb. 
+    \makeatletter
+        \newbox\Wrappedcontinuationbox 
+        \newbox\Wrappedvisiblespacebox 
+        \newcommand*\Wrappedvisiblespace {\textcolor{red}{\textvisiblespace}} 
+        \newcommand*\Wrappedcontinuationsymbol {\textcolor{red}{\llap{\tiny$\m@th\hookrightarrow$}}} 
+        \newcommand*\Wrappedcontinuationindent {3ex } 
+        \newcommand*\Wrappedafterbreak {\kern\Wrappedcontinuationindent\copy\Wrappedcontinuationbox} 
+        % Take advantage of the already applied Pygments mark-up to insert 
+        % potential linebreaks for TeX processing. 
+        %        {, <, #, %, $, ' and ": go to next line. 
+        %        _, }, ^, &, >, - and ~: stay at end of broken line. 
+        % Use of \textquotesingle for straight quote. 
+        \newcommand*\Wrappedbreaksatspecials {% 
+            \def\PYGZus{\discretionary{\char`\_}{\Wrappedafterbreak}{\char`\_}}% 
+            \def\PYGZob{\discretionary{}{\Wrappedafterbreak\char`\{}{\char`\{}}% 
+            \def\PYGZcb{\discretionary{\char`\}}{\Wrappedafterbreak}{\char`\}}}% 
+            \def\PYGZca{\discretionary{\char`\^}{\Wrappedafterbreak}{\char`\^}}% 
+            \def\PYGZam{\discretionary{\char`\&}{\Wrappedafterbreak}{\char`\&}}% 
+            \def\PYGZlt{\discretionary{}{\Wrappedafterbreak\char`\<}{\char`\<}}% 
+            \def\PYGZgt{\discretionary{\char`\>}{\Wrappedafterbreak}{\char`\>}}% 
+            \def\PYGZsh{\discretionary{}{\Wrappedafterbreak\char`\#}{\char`\#}}% 
+            \def\PYGZpc{\discretionary{}{\Wrappedafterbreak\char`\%}{\char`\%}}% 
+            \def\PYGZdl{\discretionary{}{\Wrappedafterbreak\char`\$}{\char`\$}}% 
+            \def\PYGZhy{\discretionary{\char`\-}{\Wrappedafterbreak}{\char`\-}}% 
+            \def\PYGZsq{\discretionary{}{\Wrappedafterbreak\textquotesingle}{\textquotesingle}}% 
+            \def\PYGZdq{\discretionary{}{\Wrappedafterbreak\char`\"}{\char`\"}}% 
+            \def\PYGZti{\discretionary{\char`\~}{\Wrappedafterbreak}{\char`\~}}% 
+        } 
+        % Some characters . , ; ? ! / are not pygmentized. 
+        % This macro makes them "active" and they will insert potential linebreaks 
+        \newcommand*\Wrappedbreaksatpunct {% 
+            \lccode`\~`\.\lowercase{\def~}{\discretionary{\hbox{\char`\.}}{\Wrappedafterbreak}{\hbox{\char`\.}}}% 
+            \lccode`\~`\,\lowercase{\def~}{\discretionary{\hbox{\char`\,}}{\Wrappedafterbreak}{\hbox{\char`\,}}}% 
+            \lccode`\~`\;\lowercase{\def~}{\discretionary{\hbox{\char`\;}}{\Wrappedafterbreak}{\hbox{\char`\;}}}% 
+            \lccode`\~`\:\lowercase{\def~}{\discretionary{\hbox{\char`\:}}{\Wrappedafterbreak}{\hbox{\char`\:}}}% 
+            \lccode`\~`\?\lowercase{\def~}{\discretionary{\hbox{\char`\?}}{\Wrappedafterbreak}{\hbox{\char`\?}}}% 
+            \lccode`\~`\!\lowercase{\def~}{\discretionary{\hbox{\char`\!}}{\Wrappedafterbreak}{\hbox{\char`\!}}}% 
+            \lccode`\~`\/\lowercase{\def~}{\discretionary{\hbox{\char`\/}}{\Wrappedafterbreak}{\hbox{\char`\/}}}% 
+            \catcode`\.\active
+            \catcode`\,\active 
+            \catcode`\;\active
+            \catcode`\:\active
+            \catcode`\?\active
+            \catcode`\!\active
+            \catcode`\/\active 
+            \lccode`\~`\~ 	
+        }
+    \makeatother
+
+    \let\OriginalVerbatim=\Verbatim
+    \makeatletter
+    \renewcommand{\Verbatim}[1][1]{%
+        %\parskip\z@skip
+        \sbox\Wrappedcontinuationbox {\Wrappedcontinuationsymbol}%
+        \sbox\Wrappedvisiblespacebox {\FV@SetupFont\Wrappedvisiblespace}%
+        \def\FancyVerbFormatLine ##1{\hsize\linewidth
+            \vtop{\raggedright\hyphenpenalty\z@\exhyphenpenalty\z@
+                \doublehyphendemerits\z@\finalhyphendemerits\z@
+                \strut ##1\strut}%
+        }%
+        % If the linebreak is at a space, the latter will be displayed as visible
+        % space at end of first line, and a continuation symbol starts next line.
+        % Stretch/shrink are however usually zero for typewriter font.
+        \def\FV@Space {%
+            \nobreak\hskip\z@ plus\fontdimen3\font minus\fontdimen4\font
+            \discretionary{\copy\Wrappedvisiblespacebox}{\Wrappedafterbreak}
+            {\kern\fontdimen2\font}%
+        }%
+        
+        % Allow breaks at special characters using \PYG... macros.
+        \Wrappedbreaksatspecials
+        % Breaks at punctuation characters . , ; ? ! and / need catcode=\active 	
+        \OriginalVerbatim[#1,codes*=\Wrappedbreaksatpunct]%
+    }
+    \makeatother
+
+    % Exact colors from NB
+    \definecolor{incolor}{HTML}{303F9F}
+    \definecolor{outcolor}{HTML}{D84315}
+    \definecolor{cellborder}{HTML}{CFCFCF}
+    \definecolor{cellbackground}{HTML}{F7F7F7}
+    
+    % prompt
+    \newcommand{\prompt}[4]{
+        \llap{{\color{#2}[#3]: #4}}\vspace{-1.25em}
+    }
+    
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+\usepackage{setspace}
+\onehalfspacing
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{abstract}{%
+\section*{Abstract}\label{abstract}}
+
+Although public perception of the police can help unlock drivers and
+results for police effectiveness, it is extremely hard to measure. In
+this project, I attempted to classify whether tweets expressed positive,
+negative, or neutral sentiments of the police. To do this work, I used a
+random sample of about 1500 tweets from May 2020. MTurk workers coded
+these tweets as neutral, not relevant, positive, or negative. I used
+traditional classifiers (Naive Bayes and Logistic Regression) as well as
+neural net classifiers to predict tweet label in three ways. First, to
+predict four-way classification. Second, to predict opinion tweets from
+all tweets. Third, to detect negative opinions from all tweets. Although
+no classifier was able to accurately and precisely predict general
+classifications of tweets, many showed promise. Work with larger and
+more robust datasets could potentially increase predictive power of
+these models.
+
+\tableofcontents 
+
+\linespread{1.5}
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+Public perception of the police is incredibly important to police
+effectiveness and legitimacy but extremely difficult to measure. Public
+perception offers insight into how well a police department is
+functioning and may suggest adherence to tenets of procedural justice.
+Yet, compared to traditional performance metrics, metrics to evaluate
+public opinion are poorly defined and documented.
+
+There is very little research currently available that measures
+real-world public sentiment of the police in US cities. As a result,
+this project serves to provide a proof-of-concept first and foremost
+that publicly-available data can be easily acquired and use in order to
+study common issues in policing.
+
+\hypertarget{clearance-rates}{%
+\subsection{Clearance rates}\label{clearance-rates}}
+
+Homicide clearance rates, or what share of murders a police department
+``solves'', are a key performance metric for police departments. Chicago
+has one of the lowest homicide clearance rates in the country, and only
+about 1 in 6 murders lead to arrest. Moreover, Chicago's clearance rate
+has steadily declined over the past ten years, from about 40\% in 2000
+down to under 20\% in 2017. As a comparison, several police departments
+have markedly higher clearance rates. Over the past decade, Los Angeles
+has solved 51\% of murders and New York has solved 61\% of murders.
+
+There are several potential reasons for the low clearance rate in
+Chicago, some of which suggest that non-traditional metrics of policing
+like procedural justice or public opinion may be related to traditional
+metrics. Police officers tend to cite the historically fraught
+relationship between the people and police, believing that someone who
+already views the police negatively because police seem inept may be
+less likely to cooperate with an investigation; more bluntly, many
+police officers lament a ``no snitch'' policy among victimized
+communities in Chicago. Evidence is conflicted: the National Crime
+Victimization Survey reports that these communities are no less likely
+to report crimes to the police, but a Cato Institute survey shows a race
+and education gap for crime reporting. There are also other viable
+explanations for Chicago's abysmal clearance rate, most notably that
+Chicago's police force has limited manpower per murder. Chicago has more
+murders than New York and Los Angeles combined, yet the police
+department (12,000 officers) is dwarved by New York's (36,000) and Los
+Angeles' (10,000).
+
+\hypertarget{public-opinion}{%
+\subsection{Public opinion}\label{public-opinion}}
+
+Public opinion can also help measure procedural justice, or how police
+officers enforce laws. Although procedural justice is difficult to
+measure directly, past research has evaluated procedural justice through
+the lens of public opinion survey data.
+
+Procedural justice is necessary for effective policing. A civilian who
+considers the law enforcement process fair and just is likely to
+consider any related consequences fair and just, too. Conversely, when
+civilians perceive lack of procedural justice, they are more likely to
+file complaints and view their police force as delegitimate. For
+example, one study of New York Police Department Stop, Question, and
+Frisk stops showed that civilians who believed their stop to be fair
+were less likely to file a complaint than those who believed their stop
+was unjust. Finally, a lack of procedural justice in just a few
+encouters can severely curtail public opinion of the police. Negative
+interactions with the police shape citizen perception up to fourteen
+times more strongly than positive ones.
+
+Public perception of the police offers an additional metric to assess
+police performance. While hard metrics like clearance rates are easy to
+measure, assessing how the public feels towards the police is far more
+complex. Indeed, most work that tries to assess public sentiment uses
+survey-based or experimental research. More recent work has considered
+sentiments of tweets to assess public opinion of the police. As a
+caveat, public perception of the police is complicated and interacts
+with policing in myriad ways.
+
+\hypertarget{research-goals}{%
+\subsection{Research goals}\label{research-goals}}
+
+The goal of this work is to assess the extent to which twitter data can
+be reliably used to evaluate public opinion of the police department.
+There is no dataset on police-related tweets that I could draw on, for
+example; very little by way of classifying tweets as police-related or
+not exists at present. This work then serves to primarily explore
+whether tweets can be reliably be categorized as ``police relevant,
+positive'', ``police relevant, negative'', ``police relevant, neutral'',
+or ``not police relevant'' with respect to public sentiment.
+
+Why might such work be important? There are thousands of tweets about
+policing each and every day in the United States. Understanding which
+tweets reflect public sentiment (rather than are unrelated but use
+similar acronyms) provide a foundation for further research. More
+importantly, understanding what precise sentiment tweets express on a
+larger scale can better enable researchers to measure public sentiment
+of the police.
+
+More concretely, this is simply the beginning. Once we can reliably
+predict how a tweet relates to policing, we can begin to assess public
+perception of the police. More specifically, I'm interested in assessing
+the extent to which public sentiment reflects traditional metrics of
+police effectiveness, where effectiveness here is roughly equivalent to
+clearance.
+
+\hypertarget{past-work}{%
+\section{Past Work}\label{past-work}}
+
+\hypertarget{using-twitter-data-to-measure-public-sentiment-towards-the-police}{%
+\subsection{Using twitter data to measure public sentiment towards the
+police}\label{using-twitter-data-to-measure-public-sentiment-towards-the-police}}
+
+Although there has been limited work using data science techniques to
+study criminal justice, the Urban Institute used sentiment analysis for
+police-related tweets to measure how perception of the police changed
+due to the murder of Freddie Gray, using the following methods:
+
+\begin{itemize}
+\tightlist
+\item
+  Obtaining the data: researchers used a set of relevant tweets from
+  2014 and 2015 acquired through twitter.
+\item
+  Processing the data: researchers removed mentions, hashtags, links,
+  punctuation, and stop words from all tweets. They also used CoreNLP to
+  tag tweets (e.g., to identify whether ``cop'' was a noun or a verb in
+  each tweet).
+\item
+  Learning models: researchers classified over 4,000 tweets manually to
+  identify whether the tweet was positive, negative, neutral, or not
+  applicable to their research for use in training and validation sets.
+  They then used several types of models to predict the sentiment of new
+  tweets and selected a gradient-boosted regression classifier as their
+  model based on its accuracy (63\%).
+\item
+  Conclusions: researchers then used their newly labeled set of all
+  tweets to assess the shift in public sentiment over time.
+\end{itemize}
+
+\hypertarget{using-twitter-data-to-connect-public-opinion-with-tweet-sentiment}{%
+\subsection{Using twitter data to connect public opinion with tweet
+sentiment}\label{using-twitter-data-to-connect-public-opinion-with-tweet-sentiment}}
+
+As a more general example, researchers at Carnegie Mellon University
+determined that public opinion surveys correlate to twitter sentiment on
+several key issues. They used twitter data specifically with two
+endgoals: to identify relevant tweets and to estimate sentiment
+(positive and negative) about a given topic. The specific methods used
+in this paper are less relevant to this work than the fact that twitter
+data alone was used to measure public sentiment.
+
+\hypertarget{methods}{%
+\section{Methods}\label{methods}}
+
+Unlike my wiser classmates, I decided to create my own dataset using
+twitter data. Ultimately, data cleaning took an enormous effort -- and I
+could continue to clean data forever and incrementally improve data
+quality with each run. Below, I walk through the decisions I made when
+creating my dataset, as well as some tradeoffs each decision posed.
+
+\hypertarget{extracting-tweets-using-the-twitter-api}{%
+\subsection{Extracting tweets using the Twitter
+API}\label{extracting-tweets-using-the-twitter-api}}
+
+Tweets were extracted from the Twitter API using the following criteria:
+
+\begin{itemize}
+\tightlist
+\item
+  Tweets contained at least one of the following search terms: ``Chicago
+  Police'', ``CPD'', ``chicago police department'', ``second city cop'',
+  ``chicago cop''
+\item
+  Tweets were extracted in two rounds: one in early April that was
+  overly dominated by the Jurnee Smollet case, and one at the middle of
+  May.
+\end{itemize}
+
+Ultimately, tweets in the second set were used for modelling. Each
+dataset included over 15,000 tweets because the first dataset was
+weighted too heavily in terms of the Smollett case, an incident in which
+a famous actor allegedly falsely reported a hate crime. I did not want
+my dataset to be weighted heavily in terms of a single topic; rather, I
+wanted data to be more general.
+
+As an aside: In retrospect, all news cycles have certain dominant
+stories. Were I to execute this project again, I would have used a
+sample of tweets from many time periods (say, 150/week over a period of
+a year) in order to ensure that my model was not simply learning how
+certain news events are labeled.
+
+\hypertarget{preprocessing-and-labeling-tweets}{%
+\subsection{Preprocessing and labeling
+tweets}\label{preprocessing-and-labeling-tweets}}
+
+Preprocessing and labeling large amounts of text data posed a
+non-trivial challenge. I attempted several approaches, as listed below,
+in order to efficiently and accurately label the data. I used the
+following criteria to label tweets:
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{Not Relevant}: A tweet that my filters picked up, but was not
+  actually about the police (e.g., it used a common acronym) was coded
+  as not relevant
+\item
+  \emph{Neutral}: Neutral tweets discussed facts or headlines. Any news
+  headline or simple fact (e.g., ``Police Union Meeting Tomorrow at
+  6p!'') was classified as neutral
+\item
+  \emph{Positive}: A tweet that expressed someone's positive view of the
+  police was classified as positive
+\item
+  \emph{Negative}: A tweet that expressed someone's negative view of the
+  police was classified as negative
+\end{itemize}
+
+To preprocess, I used the following pipeline:
+
+\begin{itemize}
+\tightlist
+\item
+  I stemmed all words
+\item
+  I removed punctuation and irregular characters
+\item
+  I removed citations for retweets (the handles that followed) and
+  twitter handles where possible
+\item
+  I removed hashtag symbols
+\item
+  I attempted to translate emoji into English meanings
+\end{itemize}
+
+Note that depending on the way I handled data labeling, I was able to
+maintain different aspects of the tweets. I have flagged important
+compromises where I made them. Across the board, there were several data
+processing issues that I had to content with across methods:
+
+\begin{itemize}
+\tightlist
+\item
+  Emojis: in order to import all data, I needed to use ``mac roman''
+  encoding. This eliminated a lot of emoji data. As a result, emojis,
+  which I had originally intended to translate to their corresponding
+  words, could not be included across all datasets
+\item
+  Tweet characters: For long tweets or tweets with retweet citations,
+  not all of the data could be included in the text. Instead, these
+  tweets became truncated.
+\end{itemize}
+
+\hypertarget{hand-labeling}{%
+\subsubsection{Hand labeling}\label{hand-labeling}}
+
+First, I tried to hand label a subset of tweets using these rules. Not
+only was this wildly inefficient, I also learned that I myself have
+bias. I didn't want my own bias to impact how I coded a tweet (for
+example, I noticed that I would code ``bad'' news stories as negative if
+someone retweeted them, but not ``good'' news stories). I also have
+experience working with the police, and so read significant subtext in
+tweets where subtext might not have been present (for example, if a
+tweet mentioned Second City Cop, a popular sarcastic blog that is
+pro-police, I often interpreted the tweet as sarcastic). Consequently, I
+decided that I would not hand label all tweets independently.
+
+\hypertarget{corenlp}{%
+\subsubsection{CoreNLP}\label{corenlp}}
+
+The next thing I attempted was to use an out-of-the-box sentiment
+classifier to identify positive and negative tweets about the police. To
+do this, I configured an aws EC2 instance such that it was running
+Stanford's CoreNLP program on port 9000, and then submitted cleaned
+tweet text to the server for all unique tweets. Once I had my cleaned
+data, I examined the automated results.
+
+This approach posed several challenges. First, and perhaps most
+importantly, it did not address the key issue (bias) from hand labeling.
+The out-of-the-box senitment labeling was problematic because it didn't
+fully account for context. As a result, many of the tweets were
+mischaracterized. Second of all, this approach was even more time
+intensive than labeling, since I had to set up the EC2 server,
+
+As an example, the following tweet was classified as ``negative''.
+Because this tweet is a headline, it should have been classified as
+``neutral''. This problem was pervasive throughout the dataset, and
+because tweets had already been preprocessed before getting sent to the
+CoreNLP server, extremely difficult to fix. What's more, fixing the
+issue would be akin to hand-labeling tweets, which is what I wanted to
+avoid in the first place.
+
+\emph{tweet:}
+\texttt{chicago\ il\ tribune\ local\ chicago\ police\ searching\ two\ men\ briefly\ abducted\ 12yearold\ girl\ south\ side}
+
+\hypertarget{mturk-hit-task}{%
+\subsubsection{MTurk HIT task}\label{mturk-hit-task}}
+
+The final method that I used to label - and the one I completed and
+eventually used - was to create a Human Intelligence Task on Amazon's
+MTurk to have workers label my text.
+
+MTurk is a platform that connects requesters to workers. A requester is
+someone who wants a certain task completed by humans (e.g., labeling
+text). A worker gets paid per correct task completion. In this case, I
+submitted somewhat clean (but not stemmed) unique tweets to MTurk (a bit
+over 1500). The screens that workers saw are shown below.
+
+\textbf{Decision screen}
+
+\begin{figure}
+\centering
+\includegraphics{images/MTurk2.png}
+\caption{This is the screen that all MTurk workers saw when classifying
+tweets}
+\end{figure}
+
+\textbf{Additional instructions}
+
+\begin{figure}
+\centering
+\includegraphics{images/MTurk1.png}
+\caption{These were the instructions that I provided for the task.
+Workers could refer to these instructions at any time}
+\end{figure}
+
+Once workers classified all of the tweets, I reviewed the work. I
+rejected over 800 tweets (about half of the original task load) due to
+blatant inaccuracies (e.g., facts as positively or negatively coded). In
+total, about 2400 tweets were coded by MTurk workers, of which I used
+about 1500 in model building.
+
+This was my first time using MTurk. Were I to do it again, I would
+change several things:
+
+\begin{itemize}
+\tightlist
+\item
+  I would require worker qualifications to ensure that only good quality
+  workers were coding my tweets. Reviewing the coding took an enormous
+  amount of time. Not only did I have to review almost every single
+  tweet, I also had to write explanations for every tweet that I
+  rejected and correspond with workers about why their work was
+  rejected.
+\item
+  I would have each tweet coded by 3 high-quality workers as a way to
+  flag irregularly coded tweets. I had to review every single tweet for
+  this project, but had I had the means to ensure multiple eyes on each
+  tweet, I surely would have, and would only have checked tweets with
+  disagreement.
+\item
+  I would have been clearer in my instructions by providing specific
+  examples. I think many workers did not read my instructions carefully,
+  and I believe my instructions were, in retrospect, vague. I would more
+  carefully describe the task and also be sure to more clearly label
+  different options for each tweet.
+\end{itemize}
+
+\hypertarget{final-dataset}{%
+\subsection{Final dataset}\label{final-dataset}}
+
+Across all data, the tweets were classified as:
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+Label & Count & Percent\tabularnewline
+\midrule
+\endhead
+Not relevant & 439 & 28.6\%\tabularnewline
+Neutral & 541 & 35.2\%\tabularnewline
+Negative & 287 & 18.7\%\tabularnewline
+Positive & 270 & 17.6\%\tabularnewline
+\bottomrule
+\end{longtable}
+
+The dataset was split 50/50 into training and testing data. For the
+neural networks, the validation set was taken by random from the
+training set. For the more traditional models, there was no validation,
+as I didn't tune hyperparameters. In future work, once I have improved
+these models, I will also include validation.
+
+My priority, however, with this run of the model was to increase my
+training set as much as possible in order to enable me to have as robust
+as possible data. This ended up being the right choice -- my models
+became less precise as I decreased the training set size -- even if
+untraditional.
+
+In the training set, the tweets were classified as:
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+Label & Count & Percent\tabularnewline
+\midrule
+\endhead
+Not relevant & 242 & 31.5\%\tabularnewline
+Neutral & 257 & 33.4\%\tabularnewline
+Negative & 135 & 17.4\%\tabularnewline
+Positive & 134 & 17.6\%\tabularnewline
+Total & 768 & 100\%\tabularnewline
+\bottomrule
+\end{longtable}
+
+And in the testing set, the tweets were classified as:
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+Label & Count & Percent\tabularnewline
+\midrule
+\endhead
+Not relevant & 197 & 31.5\%\tabularnewline
+Neutral & 284 & 33.4\%\tabularnewline
+Negative & 152 & 17.4\%\tabularnewline
+Positive & 135 & 17.6\%\tabularnewline
+Total & 768 & 100\%\tabularnewline
+\bottomrule
+\end{longtable}
+
+These are important baseline characteristics for the models to be
+compared to.
+
+The data that I found departed significantly from what Urban Institute
+found. In the Urban Institute work, about 2\% of tweets were classified
+as positive; I found a much higher rate. I do not know why this would be
+the case; to investigate, I would like to look at national-level data in
+the future in order to assess whether I can reproduce distributions
+similar to the Urban Institute's. For now, I can hope that this data was
+skewed positive due to:
+
+\begin{itemize}
+\tightlist
+\item
+  Community involvement increasing
+\item
+  Positive police responses to high-publicity crimes
+\item
+  Lori Lightfoot's election, which may herald police reform
+\end{itemize}
+
+    \hypertarget{modeling}{%
+\section{Modeling}\label{modeling}}
+
+I tried several ways to gain insight on and model the data. In this
+section of the report, I will first walk through some general
+observations that I have about the data, then briefly summarize the
+models that I ran, and then describe future work that I could do to
+improve these predictions.
+
+I ran a lot of models (on the order of 50, if you include changing
+hyperparameters) and will report on the overall trends that I found.
+Additional detail that is less salient can be found in my code.
+
+\hypertarget{general-observations-about-the-data}{%
+\subsection{General observations about the
+data}\label{general-observations-about-the-data}}
+
+\hypertarget{word-counts}{%
+\subsubsection{Word counts}\label{word-counts}}
+
+I first wanted to get a good sense of what in particular was in my data.
+First, I looked at words that occurred most commonly across tweets:
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+Word & Number of tweets included in\tabularnewline
+\midrule
+\endhead
+chicago & 417\tabularnewline
+police & 410\tabularnewline
+chicagopolic & 119\tabularnewline
+pregnant & 96\tabularnewline
+babi & 87\tabularnewline
+woman & 86\tabularnewline
+say & 69\tabularnewline
+miss & 69\tabularnewline
+found & 65\tabularnewline
+womb & 58\tabularnewline
+synagogu & 54\tabularnewline
+cut & 48\tabularnewline
+cwbchicago & 40\tabularnewline
+dead & 40\tabularnewline
+arrest & 38\tabularnewline
+amp & 38\tabularnewline
+report & 37\tabularnewline
+peopl & 35\tabularnewline
+home & 35\tabularnewline
+charge & 32\tabularnewline
+\bottomrule
+\end{longtable}
+
+Some of these words are general, like \texttt{chicago} and
+\texttt{chicagopolic} and \texttt{arrest}. Others relate to specific
+news stories, like \texttt{pregnant} and \texttt{synagogu} (there was a
+murder of a pregnant woman and a molotov cocktail thrown at a synagogue
+the week that I pulled tweets). This hints at a larger problem with the
+data: any week-long time period is not sufficiently general to build a
+general model on. This was good information for me to learn.
+
+This effect is even more pronounced when bigrams are considered. The
+most popular bigrams here were: \texttt{babi\ cut},
+\texttt{chicago\ police}, \texttt{cut\ womb},
+\texttt{cwbcchicago\ chicagopolic}, \texttt{found\ dead},
+\texttt{miss\ pregnant}, \texttt{polic\ say}, and
+\texttt{pregnant\ woman}.
+
+Another important note is that these tweets varied greatly. Even the
+most common words appeared in only about half of tweets. This led me to
+cluster my data.
+
+\hypertarget{similarity-and-clustering}{%
+\subsubsection{Similarity and
+clustering}\label{similarity-and-clustering}}
+
+In order to further understand how similar and different tweets are, I
+next used cosine similarity on a TF-IDF matrix from my data in order to
+assess how similar my tweets were to each other. The short answer is
+that most tweets are different from most other tweets.
+
+To investigate this further, I used my similarity matrix to build
+clusters. This was highly influenced by a tutorial that I saw online,
+and this tutorial is cited in my code.
+
+More than half of my clusters included fewer than 10 tweets, which was
+not ideal. The most popular clusters, also, were less than ideal. They
+showed mixed sentiment by cluster, and the most dominant cluster
+predominantly had irrelevant tweets. The results from the four most
+popular clusters are shown below, where the number of tweet per label by
+cluster is shown.
+
+\begin{figure}
+\centering
+\includegraphics{images/clusters.png}
+\caption{Clusters with more than 20 members}
+\end{figure}
+
+These results are otherwise difficult to interpret, as many of the
+processed tweets are difficult to comprehend.
+
+    \hypertarget{results}{%
+\subsection{Results}\label{results}}
+
+I considered two types of models, Neural Networks and more traditional
+models. In this section, I will walk through what I tweaked in each type
+of model. Then, I will show some of the best results from each. Note
+that additional work can be found in the code base.
+
+For all models, I looked at three types of labels:
+
+\begin{itemize}
+\tightlist
+\item
+  Four-way classification: similar to how Urban Institute classified
+  their tweets, particularly useful if it can be broadly applied to
+  tweets at large.
+\item
+  Binary opinion vs.~not opinion classification: to reveal which tweets
+  are actually relevant to further analysis.
+\item
+  Negative sentiment vs.~not negative sentiment: to reveal which tweets
+  consider the police negatively.
+\end{itemize}
+
+I chose these labels as I believe they would be most useful to social
+science researchers. In addition to the Urban Institute work referenced
+above, other work at Carnegie Mellon has looked at comparing amounts of
+different types of sentiment in tweets to measure public opinion. In
+this vein, identifying which tweets are opinion and which are negative
+opinion could positively impact social science research.
+
+As a brief summary, please find the rough ``best'' accuracy for each
+type of model below:
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule
+Type & Labels & Neural Net & ''Traditional''\tabularnewline
+\midrule
+\endhead
+4way & positive, negative, neutral, not relevant & \textasciitilde{}56\%
+& \textasciitilde{}42\%\tabularnewline
+Binary & opinion, not opinion & \textasciitilde{}63\% &
+\textasciitilde{}68\%\tabularnewline
+Binary & negative sentiment, other & \textasciitilde{}85\% &
+\textasciitilde{}80\%\tabularnewline
+\bottomrule
+\end{longtable}
+
+\hypertarget{traditional-models}{%
+\subsubsection{Traditional models}\label{traditional-models}}
+
+I ran Logistic Regression and Naive Bayes models with the following
+types of features:
+
+\begin{itemize}
+\tightlist
+\item
+  word bigrams
+\item
+  word unigrams
+\item
+  tf-idf bigrams
+\item
+  tf-idf unigrams
+\end{itemize}
+
+Naive Bayes models out-performed Logistic Regression models; a subset of
+model results will be shown below.
+
+\hypertarget{classifying-a-tweet-as-negative-or-not-negative}{%
+\paragraph{Classifying a tweet as negative or not
+negative}\label{classifying-a-tweet-as-negative-or-not-negative}}
+
+The Naive Bayes (Multinomial) with unigram features was among the most
+successful, with a precision of 25.7\% and an accuracy of 81.1\%. The
+precision truly does impede the usefulness of the work, however. In the
+graph below, the number of tweets per predicted labels, split by true
+labels, is shown. As you can see, the prediction does show improvement
+over ``random guessing'', but not by a great deal.
+
+\begin{figure}
+\centering
+\includegraphics{images/nb_pred.png}
+\caption{Unigram Naive Bayes Classifier for negative / not negative
+classification}
+\end{figure}
+
+\hypertarget{classifying-a-tweet-into-one-of-four-categories}{%
+\paragraph{Classifying a tweet into one of four
+categories}\label{classifying-a-tweet-into-one-of-four-categories}}
+
+In the graph below, results from a Naive Bayes bigram model (the best of
+those I tested) is shown. The labels pertain to:
+
+\begin{itemize}
+\tightlist
+\item
+  0: Not relevant
+\item
+  1: Positive
+\item
+  2: Negative
+\item
+  3: Neutral
+\end{itemize}
+
+This model shows the most success at predicting neutral tweets. It also
+performs better than random. In particular, this model had a precision
+of 36.3\% and an accuracy of 41.9\%.
+
+I believe that one reason neutral tweets are easier to predict is that
+they have somewhat similar bigrams. For example, many tweets about news
+headlines include the term ``police said''.
+
+\begin{figure}
+\centering
+\includegraphics{images/nb_pred_4way.png}
+\caption{Bigram Naive Bayes Classifier for four-way classification}
+\end{figure}
+
+\hypertarget{classifying-a-tweet-as-an-opinion-or-not}{%
+\paragraph{Classifying a tweet as an opinion or
+not}\label{classifying-a-tweet-as-an-opinion-or-not}}
+
+As above, I used an Naive Bayes model based on bigram features to
+classify a tweet as an opinion or not. This model had precision 35.2\%
+and accuracy 66.7\%. The results are shown in a graph below. This model
+was moderately successful - it was able to predict non-opinion tweets
+reasonably well, especially given the limited data.
+
+\begin{figure}
+\centering
+\includegraphics{images/nb_pred_2way.png}
+\caption{Bigram Naive Bayes Classifier for opinion / not opinion
+classification}
+\end{figure}
+
+    \hypertarget{neural-net-models}{%
+\subsubsection{Neural Net models}\label{neural-net-models}}
+
+Neural nets proved to be the wrong tool for this job, due largely to the
+limited data. These models performed quite poorly; rather, they overfit
+data extremely. In addition, they were not robust; results vary
+significantly run-to-run. It seems that much of the models' successes
+are based on learning the dataset entirely and fitting to it; this
+suggests the models could be effective given a larger sample size.
+
+\hypertarget{a-note-on-overfitting-and-low-sample-size}{%
+\paragraph{A note on overfitting and low sample
+size}\label{a-note-on-overfitting-and-low-sample-size}}
+
+In particular, the model actually seems to overfit data regardless of
+when drop out layers are included. Consider the two figures below. In
+the first, a four-layer model with no drop out layers is shown. In the
+second, the same model, but this time, with drop out layers, is shown.
+The accuracy between validation and test sets does not decrease
+materially when drop out layers are included. These figures are from
+neural nets that use word bigrams to predict a 4-way classification.
+
+\begin{figure}
+\centering
+\includegraphics{images/dropout_no.png}
+\caption{NN Classifier for 4-way classification without dropout layers}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{images/dropout.png}
+\caption{NN Classifier for 4-way classification with dropout layers}
+\end{figure}
+
+It is important to note that this behavior suggests that there simply is
+not robust enough data to build a neural net well.
+
+\hypertarget{four-way-prediction-using-4-layer-nn-classifier}{%
+\paragraph{Four way prediction using 4-layer NN
+classifier}\label{four-way-prediction-using-4-layer-nn-classifier}}
+
+The loss over epochs for a neural network with four layers (activations:
+softmax, relu, softmax; optimizer: adam, loss: categorical cross
+entropy) are shown below. The accuracy is already shown above. Notice
+that overfitting is also shown here (loss for validation does not
+decrease with the training set).
+
+In addition, as shown above, at the end of 25 epochs (ended because
+overfitting grows over time), there is reasonable accuracy among both
+training and validation datasets. This is promising relative to
+traditional models.
+
+\begin{figure}
+\centering
+\includegraphics{images/loss-4way.png}
+\caption{NN Classifier for 4-way classification, loss}
+\end{figure}
+
+\hypertarget{two-way-classification-opinion-or-not}{%
+\paragraph{Two-way classification: opinion or
+not}\label{two-way-classification-opinion-or-not}}
+
+The graphs of precision, accuracy, and loss for a neural network is
+shown below. This neural network had three dense layers and two drop out
+layers. It used activation functions softmax, relu, softmax, loss
+function crossentropy loss, and the adam optimizer. As above, although
+this overfits training data, it shows promise. With a larger and more
+varied dataset, a similar neural network could have potential.
+
+\begin{figure}
+\centering
+\includegraphics{images/opinion_loss.png}
+\caption{NN Classifier for sentiment classification, loss}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{images/opinion_accuracy.png}
+\caption{NN Classifier for sentiment classification, accuracy}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{images/opinion_precision.png}
+\caption{NN Classifier for sentiment classification, precision}
+\end{figure}
+
+In particular, notice that the precision far outpaces that of the
+traditional models. This may simply be an effect of overfitting.
+
+\hypertarget{additional-models}{%
+\paragraph{Additional models}\label{additional-models}}
+
+I also built additional models and played with other parameters for the
+neural nets, like their optimizer, their loss functions, the number of
+layers and drop out layers, and the types of activation functions. This
+dataset, though, was simply too volatile to overwhelmingly conclude what
+was the best and the worst options. Because with every iteration of this
+model, results varied significantly, I cannot say which models are the
+best overall. Instead, I will assert that the models shown above were,
+to my mind, most promising.
+
+\hypertarget{discussion-and-future-work}{%
+\subsection{Discussion and future
+work}\label{discussion-and-future-work}}
+
+Neural Nets hold the most promise for this work, but overfit data
+significantly. Though they have significantly better precision over
+traditional models, there is need for models trained on larger and more
+varied data.
+
+Future directions for this work include:
+
+\begin{itemize}
+\tightlist
+\item
+  Detecting sarcasm in this corpus (this is a deep area of research that
+  I was unable to fully delve into in such a short period of time)
+\item
+  Using data from more weeks and more cities
+\item
+  Using more data in general
+\end{itemize}
+
+    \hypertarget{what-did-i-learn-for-this-project}{%
+\section{What did I learn for this
+project?}\label{what-did-i-learn-for-this-project}}
+
+To complete this project, I had to familiarize myself with a number of
+technologies, among other material (like learning more about types of
+models):
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  keras
+\item
+  MTurk
+\item
+  using sklearn for text analysis
+\item
+  the twitter API
+\end{enumerate}
+
+In particular, using MTurk took a ton of time!
+
+    \hypertarget{selected-sources}{%
+\section{Selected sources}\label{selected-sources}}
+
+\hypertarget{papers}{%
+\subsection{Papers}\label{papers}}
+
+\begin{itemize}
+\item
+  Ekins, Emily. (2016). Policing in America: Understanding Public
+  Attitudes Toward the Police. Results from a National Survey. SSRN
+  Electronic Journal. 10.2139/ssrn.2919449.
+\item
+  Fowler, AF Rengifo and K. 2016. ``Stop, Question, and Complain:
+  Citizen Grievances Against the NYPD and the Opacity of Police Stops
+  Across New York City Precincts, 2007-2013.'' Journal of Urban Health
+  (93 Suppl 1): 32-41.
+\item
+  O'Connor, Brendan \& Balasubramanyan, Ramnath \& R. Routledge, Bryan
+  \& A. Smith, Noah. (2010). From Tweets to Polls: Linking Text
+  Sentiment to Public Opinion Time Series. International AAAI Conference
+  on Weblogs and Social Media. 11.
+\item
+  Skogan, Wesley G. 2006. ``Asymmetry in the Impact of Encounters With
+  Police.'' Policing and Society.
+\item
+  Tyler, Tom R. 2004. ``Enhancing Police Legitimacy.'' The Annals of the
+  American Academy of Political and Social Science 593: 84-99.
+\end{itemize}
+
+\hypertarget{news-and-articles-quick-links}{%
+\subsection{News and articles (quick
+links)}\label{news-and-articles-quick-links}}
+
+\begin{itemize}
+\tightlist
+\item
+  https://www.washingtonpost.com/graphics/2018/investigations/unsolved-homicide-database/?utm\_term=.8da8a801878a\&city=indianapolis{]}
+\item
+  https://chicago.suntimes.com/news/murder-clearance-rate-in-chicago-hit-new-low-in-2017/
+\item
+  https://www.theatlantic.com/ideas/archive/2018/05/quis-custodiet-ipsos-custodes/560324/
+\item
+  https://datasmart.ash.harvard.edu/news/article/map-monday-unsolved-homicides
+\end{itemize}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
