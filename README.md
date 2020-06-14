@@ -13,12 +13,12 @@ Final project directory structure:
 Please see the readme files in each folder for more information. 
 
 Code that was written for this project and is substantial:
-- EC2_tagging/get_clean_sample.ipynb 
-- mturk_coding/Generating_mturk_sample.ipynb
-- processing_modeling/creating_clean_test_train.ipynb
-- processing_modeling/neural_net_models.ipynb
-- processing_modeling/traditional_models.ipynb
-- EC2_tagging/code_sentiment.py       
-- tweet_extraction/extract_tweets.py
+- `EC2_tagging/get_clean_sample.ipynb` 
+- `mturk_coding/Generating_mturk_sample.ipynb`
+- `processing_modeling/creating_clean_test_train.ipynb`
+- `processing_modeling/neural_net_models.ipynb`
+- `processing_modeling/traditional_models.ipynb`
+- `EC2_tagging/code_sentiment.py`       
+- `tweet_extraction/extract_tweets.py`
 
-Line counts are included in each file. Code written exceeds 850 lines. 
+Line counts are included in each file. 
